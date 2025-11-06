@@ -1,3 +1,7 @@
+// Jason Loa, Miguel Mendoza
+// 11/6/2025
+// does something with chaining hash table and employee data
+
 import java.io.*;
 import java.util.*;
 
