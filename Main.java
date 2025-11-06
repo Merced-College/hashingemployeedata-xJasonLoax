@@ -56,7 +56,13 @@ public class Main {
         }
 
         // TODO: print total employees, duplicates found, and duplicate list
-    }
+
+        // print chaininghashTable
+    // for(int i = 0; i < table.length; i++) {
+    //     System.out.println(table.get())
+    //}
+    }// end main
+
 
     // helper for cleaning up salary strings
     private static double parseMoney(String s) {
