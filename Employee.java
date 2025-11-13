@@ -1,3 +1,9 @@
+// Jason Loa
+// 11/13/25
+// Employee class to hold employee data
+
+import java.util.Objects;
+
 public class Employee {
     String lastName;
     String firstName;
@@ -77,7 +83,11 @@ public class Employee {
 
     //add an equals() and hashCode() method (use lastName, firstName, and department to determine equality)
 
-    
+    //this hash code method was made for standardization and will not
+    // be used in our current implementation
+    // public int hashCode() {
+    //     return (firstName + lastName).hashCode();
+    // }
 
     @Override
     public String toString() {

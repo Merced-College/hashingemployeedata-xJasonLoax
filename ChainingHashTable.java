@@ -1,3 +1,5 @@
+// Jason Loa
+
 import java.io.PrintStream;
 
 public class ChainingHashTable<K, V> implements MapADT<K, V> {
