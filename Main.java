@@ -67,6 +67,32 @@ public class Main {
         table.insert(testKey, testEmp);
         System.out.println("Test employee inserted: " + table.get(testKey));
 
+        // === SEARCH SECTION ===
+        System.out.println();
+        System.out.println("=== Employee Search ===");
+        Employee found = searchByName(table, "Loa", "Jason");
+        if (found != null) {
+            System.out.println("Employee Found: " + found);
+        } else {
+            System.out.println("Employee not found");
+        }
+        System.out.println();
+
+        // === REMOVE SECTION ===
+        System.out.println("=== Remove Employee ===");
+        String removeKey = ("Loa" + "Jason").toLowerCase();
+        table.remove(removeKey);
+        System.out.println("Jason Loa has been removed.");
+        
+        // Verify removal
+        Employee afterRemoval = searchByName(table, "Loa", "Jason");
+        if (afterRemoval == null) {
+            System.out.println("Verification: Employee successfully removed from table.");
+        } else {
+            System.out.println("Verification: Employee still exists in table.");
+        }
+        System.out.println();
+
         // === OUTPUT SECTION ===
         System.out.println("=== Employee Hash Table Report ===");
         System.out.println("Total Employees Loaded: " + totalLoaded);
@@ -92,5 +118,11 @@ public class Main {
         } catch (NumberFormatException e) {
             return 0.0;
         }
+    }
+
+    // Search for an employee by name
+    private static Employee searchByName(ChainingHashTable<String, Employee> table, String lastName, String firstName) {
+        String key = (lastName + firstName).toLowerCase();
+        return table.get(key);
     }
 }
