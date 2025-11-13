@@ -1,21 +1,21 @@
 // Jason Loa, Miguel Mendoza
 // 11/6/2025
-// does something with chaining hash table and employee data
+// Processes employee data using a chaining hash table
 
 import java.io.*;
 import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
-        // TODO: create your ChainingHashTable using zyBook code
+        // ChainingHashTable using zyBook code
         ChainingHashTable<String, Employee> table = new ChainingHashTable<>(11);
 
-        // TODO: make an ArrayList to store duplicate Employee objects
-        // ArrayList<Employee> duplicates = ...
+        // ArrayList to store duplicate Employee objects
+        ArrayList<Employee> duplicates = new ArrayList<>();
 
-        // TODO: make counters to keep track of total employees and duplicates
-        // int totalLoaded = 0;
-        // int duplicatesFound = 0;
+        // Counters
+        int totalLoaded = 0;
+        int duplicatesFound = 0;
 
         try (BufferedReader br = new BufferedReader(new FileReader("Employee_data.csv"))) {
             String line = br.readLine(); // skip header
@@ -33,42 +33,58 @@ public class Main {
                         parseMoney(cols[5])
                 );
 
-                // TODO: increment your total counter
+                totalLoaded++;
 
-                // Create the hash key using last + first name
+                // Hash key: last + first name
                 String key = (emp.lastName + emp.firstName).toLowerCase();
 
-                // TODO: use table.get(key) to see if an employee already exists
-                // if it exists, and it’s the same department, treat it as a duplicate
-                // otherwise insert into the hash table
-
-                // Example:
-                // Employee existing = table.get(key);
-                // if (existing != null) {
-                //     if (existing.department.equalsIgnoreCase(emp.department)) {
-                //         duplicates.add(emp);
-                //         duplicatesFound++;
-                //     } else {
-                //         table.insert(key, emp);
-                //     }
-                // } else {
-                //     table.insert(key, emp);
-                // }
+                // Check for duplicates
+                Employee existing = table.get(key);
+                if (existing != null) {
+                    if (existing.department.equalsIgnoreCase(emp.department)) {
+                        duplicates.add(emp);
+                        duplicatesFound++;
+                    } else {
+                        table.insert(key, emp);
+                    }
+                } else {
+                    table.insert(key, emp);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        // TODO: print total employees, duplicates found, and duplicate list
+        Employee testEmp = new Employee(
+            "Loa",
+            "Jason",
+            "Engineer",
+            "Sales",
+            75000.0,
+            72000.0
+        );
+        String testKey = (testEmp.lastName + testEmp.firstName).toLowerCase();
+        table.insert(testKey, testEmp);
+        System.out.println("Test employee inserted: " + table.get(testKey));
 
-        // print chaininghashTable
-    // for(int i = 0; i < table.length; i++) {
-    //     System.out.println(table.get())
-    //}
-    }// end main
+        // === OUTPUT SECTION ===
+        System.out.println("=== Employee Hash Table Report ===");
+        System.out.println("Total Employees Loaded: " + totalLoaded);
+        System.out.println("Duplicate Employees Found: " + duplicatesFound);
+        System.out.println();
 
+        // Print duplicates (if any)
+        if (!duplicates.isEmpty()) {
+            System.out.println("Duplicate Entries:");
+            for (Employee dup : duplicates) {
+                System.out.println("  " + dup);
+            }
+        } else {
+            System.out.println("No duplicates found.");
+        }
+    }
 
-    // helper for cleaning up salary strings
+    // Helper: cleans up salary strings like "$45,000" → 45000.0
     private static double parseMoney(String s) {
         if (s == null || s.isBlank()) return 0.0;
         try {
